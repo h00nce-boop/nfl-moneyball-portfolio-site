@@ -500,6 +500,7 @@
       border-radius: 22px;
       border: 1px solid rgba(255,255,255,0.1);
       background: linear-gradient(135deg, rgba(255,255,255,0.065), rgba(255,255,255,0.025));
+      color: var(--text);
       transition: 180ms ease;
       overflow: hidden;
       min-height: 172px;
@@ -517,7 +518,7 @@
       line-height: 1;
     }
     .card-top { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
-    .player-name { font-size: 1.1rem; font-weight: 900; line-height: 1.1; }
+    .player-name { font-size: 1.1rem; font-weight: 900; line-height: 1.1; color: var(--text); }
     .player-meta { color: var(--muted); margin-top: 6px; font-size: 0.84rem; }
     .badge {
       display: inline-flex;
@@ -1731,7 +1732,6 @@
     $('#seasonSelect').innerHTML = seasons
     .map(season => `<option value="${season}" ${String(season) === String(state.season) ? 'selected' : ''}>${season} season</option>`)
     .join('');
-      $('#seasonSelect').innerHTML = seasons.map(season => `<option value="${season}">${season === 'ALL' ? 'All seasons' : season}</option>`).join('');
       const positions = ['ALL', 'QB', 'RB', 'WR', 'TE'];
       $('#positionChips').innerHTML = positions.map(pos => `<button type="button" class="chip ${pos === state.position ? 'active' : ''}" data-position="${pos}">${pos}</button>`).join('');
       $$('#positionChips .chip').forEach(button => {
