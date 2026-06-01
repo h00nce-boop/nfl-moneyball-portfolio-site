@@ -1307,7 +1307,7 @@
           <span class="section-kicker">01 / Project thesis</span>
           <h2>The edge is value, not just talent.</h2>
         </div>
-        <p class="section-copy">NFL teams do not only need great players. They need players whose production is worth more than their current price. This project turns that idea into a model, an interactive candidate board, and a validation story.</p>
+        <p class="section-copy">NFL teams are not only trying to find great players. They are trying to find production before it becomes expensive. This project turns that idea into an interactive roster-value model, a candidate board, and a first-pass backtest.</p>
       </div>
       <div class="thesis-grid-public">
         <article class="thesis-tile">
@@ -1382,10 +1382,10 @@
     <section id="explorer">
       <div class="section-head">
         <div>
-          <span class="section-kicker">03 / Interactive model lab</span>
+          <span class="section-kicker">03 / Interactive roster-value explorer</span>
           <h2>Explore one season at a time.</h2>
         </div>
-        <p class="section-copy">Choose a season, then filter by team, position, cost profile, and value threshold. Each card represents one player’s value signal for the selected season.</p>
+        <p class="section-copy">Choose a season, then filter by team, position, cost profile, and value threshold. Each card represents one player’s value signal for the selected season, not the player's full career.</p>
       </div>
 
       <div class="control-deck" aria-label="Player filters">
@@ -1510,7 +1510,7 @@
           <span class="section-kicker">05 / Backtest lab</span>
           <h2>Stress test the signal.</h2>
         </div>
-        <p class="section-copy">The backtest asks a plain-English question: did the players flagged by the model do better the next season than similar players it did not flag? This is evidence of signal, not proof of a finished prediction system.</p>
+        <p class="section-copy">The backtest asks a simple question: after the model flagged a player as underpriced, did that player perform better the next season than similar players who were not flagged? This is an early validation check, not proof of a finished prediction system.</p>
       </div>
 
       <div class="backtest-layout">
@@ -1568,7 +1568,7 @@
           <span class="section-kicker">08 / Living model</span>
           <h2>This is a living model.</h2>
         </div>
-        <p class="section-copy">This project is ongoing by design. The current version shows the core model, the interactive website, and first-pass validation; future versions will improve prediction quality, data coverage, and the product experience.</p>
+        <p class="section-copy">This project is ongoing by design. The current version explains the core idea, shows an interactive roster-value explorer, and tests whether the signal has early evidence. Future versions will add more context, stronger prediction features, and cleaner player reports.</p>
       </div>
 
       <div class="roadmap-grid">
@@ -1674,7 +1674,7 @@
       const metrics = DATA.metrics || {};
       $('#navDataVersion').textContent = `${meta.dataVersion || 'portfolio data'} / updated ${meta.lastUpdated || 'NA'}`;
       $('#heroEyebrow').textContent = `${meta.owner || 'Hannah Levy'} / ${meta.dataVersion || 'NFL roster value model'}`;
-      $('#heroSub').innerHTML = `${meta.tagline || 'Find underpriced NFL production before the market fully prices it.'} <strong>This version turns the project into an interactive front-office demo.</strong>`;
+      $('#heroSub').innerHTML = `Built as a sports analytics portfolio project, this is a front-office-style tool for exploring which NFL players may be producing more value than their current cost suggests. <strong>The goal is to make roster value easier to explore, question, and validate.</strong>`;
       $('#heroGithub').href = meta.githubUrl || '#';
       $('#navDashboard').href = meta.streamlitUrl || 'https://nfl-moneyball-roster-value.streamlit.app/';
       $('#navDashboard').target = '_blank';
@@ -1808,7 +1808,7 @@
         [players.length, 'players matching filters'],
         [gap(avg(players, 'player_surplus_gap')), 'average surplus gap'],
         [gap(maxSurplus, 0), 'max surplus gap'],
-        [top ? top.player_name : 'NA', 'top displayed candidate']
+        [top ? top.player_name : 'NA', 'top displayed candidate this season']
       ];
       $('#explorerStats').innerHTML = stats.map(([value, label]) => `<div class="stat-tile"><strong>${value}</strong><span>${label}</span></div>`).join('');
     }
@@ -1862,7 +1862,7 @@
         <div class="detail-grid">
           <div class="detail-kpi"><strong>${gap(player.player_surplus_gap, 0)}</strong><span>player surplus gap</span></div>
           <div class="detail-kpi"><strong>${fmt(player.production_score, 1)}</strong><span>production score</span></div>
-          <div class="detail-kpi"><strong>$${fmt(player.cap_number, 2)}M</strong><span>public cap proxy</span></div>
+          <div class="detail-kpi"><strong>$${fmt(player.cap_number, 2)}M</strong><span>estimated cost</span></div>
           <div class="detail-kpi"><strong>${draft}</strong><span>draft context</span></div>
         </div>
         <div class="explain-box">
@@ -1896,7 +1896,7 @@
         svg.insertAdjacentHTML('beforeend', `<line class="grid-line" x1="${pad.left}" x2="${width - pad.right}" y1="${gy}" y2="${gy}"></line>`);
         svg.insertAdjacentHTML('beforeend', `<line class="grid-line" x1="${gx}" x2="${gx}" y1="${pad.top}" y2="${height - pad.bottom}"></line>`);
       }
-      svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="${width / 2}" y="${height - 12}" text-anchor="middle">cost proxy ($M)</text>`);
+      svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="${width / 2}" y="${height - 12}" text-anchor="middle">estimated cost ($M)</text>`);
       svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="16" y="${height / 2}" transform="rotate(-90 16 ${height / 2})" text-anchor="middle">performance score</text>`);
       svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="${pad.left + 10}" y="${pad.top + 16}" fill="var(--accent)">bargain zone</text>`);
 
@@ -1911,7 +1911,7 @@
       });
       if (insight) {
         const p = state.selectedPlayer && players.includes(state.selectedPlayer) ? state.selectedPlayer : players[0];
-        insight.innerHTML = `<strong>${escapeHtml(p.player_name)}</strong> (${p.season} season / ${p.team} / ${p.position}) sits at $${fmt(p.cap_number, 2)}M cost proxy and ${fmt(p.production_score, 1)} production score. The model reads this season as <strong>${gap(p.player_surplus_gap, 0)}</strong> surplus gap.
+        insight.innerHTML = `<strong>${escapeHtml(p.player_name)}</strong> (${p.season} season / ${p.team} / ${p.position}) sits at $${fmt(p.cap_number, 2)}M estimated cost and ${fmt(p.production_score, 1)} production score. The model reads this season as <strong>${gap(p.player_surplus_gap, 0)}</strong> surplus gap.
           <div class="mini-data"><span>${p.estimated_contract_stage || 'contract stage NA'}</span><span>${p.overall_confidence || 'confidence NA'} confidence</span><span>${p.draft_capital_bucket || 'draft bucket NA'}</span></div>`;
       }
       $$('#scatterChart .dot').forEach(dot => {
