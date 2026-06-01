@@ -1202,9 +1202,9 @@
     </a>
     <nav class="navlinks" aria-label="Primary navigation">
       <a href="#thesis">Thesis</a>
-      <a href="#findings">Findings</a>
       <a href="#explorer">Explorer</a>
-      <a href="#teams">Focus Teams</a>
+      <a href="#findings">Findings</a>
+      <a href="#teams">Teams</a>
       <a href="#backtest">Backtest</a>
       <a href="#streamlit">Live App</a>
       <a href="#roadmap">Roadmap</a>
@@ -1215,14 +1215,14 @@
       <summary>MENU</summary>
       <div class="mobile-panel">
         <a href="#thesis">Thesis</a>
-        <a href="#findings">Findings</a>
         <a href="#explorer">Explorer</a>
-        <a href="#teams">Focus Teams</a>
+        <a href="#findings">Findings</a>
+        <a href="#teams">Teams</a>
         <a href="#backtest">Backtest</a>
         <a href="#streamlit">Live App</a>
         <a href="#roadmap">Roadmap</a>
         <a href="#about">About</a>
-    </div>
+      </div>
     </details>
   </header>
 
@@ -1384,7 +1384,7 @@
           <span class="section-kicker">03 / Interactive model lab</span>
           <h2>Explore the candidate board.</h2>
         </div>
-        <p class="section-copy">Filter players by season, team, position, cost profile, and value threshold. Click a card or chart point to see why the model flagged that player.</p>
+        <p class="section-copy">Choose a season, then filter by team, position, cost profile, and value threshold. Each card represents one player’s value signal for the selected season.</p>
       </div>
 
       <div class="control-deck" aria-label="Player filters">
@@ -1397,7 +1397,7 @@
           <select id="teamSelect"></select>
         </div>
         <div class="field">
-          <label for="seasonSelect">Season</label>
+          <label for="seasonSelect">Choose season</label>
           <select id="seasonSelect"></select>
         </div>
         <div class="field">
@@ -1435,7 +1435,7 @@
       <div class="dashboard-grid">
         <div class="panel">
           <div class="panel-title">
-            <h3>Candidate board</h3>
+            <h3>Season candidate board</h3>
             <span id="candidateSummary">Loading...</span>
           </div>
           <div class="stat-grid" id="explorerStats"></div>
@@ -1443,7 +1443,7 @@
         </div>
 
         <aside class="panel" id="detailPanel">
-          <div class="panel-title"><h3>Player value card</h3><span>click a card</span></div>
+          <div class="panel-title"><h3>Player-season value card</h3><span>click a card</span></div>
           <div class="detail-body" id="detailBody"></div>
         </aside>
       </div>
@@ -1454,7 +1454,7 @@
           <div class="chart-wrap">
             <svg class="svg-chart" id="scatterChart" viewBox="0 0 760 390" role="img" aria-label="Scatter plot of production score by cap number"></svg>
             <p class="chart-note">Lower cost and higher production is the upper-left bargain zone. Dot size reflects surplus gap. Click a dot for a quick readout.</p>
-            <div class="scatter-insight" id="scatterInsight">Click any point on the map to preview the player behind it.</div>
+            <div class="scatter-insight" id="scatterInsight">Click any point on the map to preview the player-season behind it.</div>
           </div>
         </div>
         <div class="panel">
@@ -1464,6 +1464,7 @@
               <thead>
                 <tr>
                   <th data-sort="player_name">Player</th>
+                  <th data-sort="season">Season</th>
                   <th data-sort="team">Team</th>
                   <th data-sort="position">Pos</th>
                   <th data-sort="player_surplus_gap">Surplus</th>
@@ -1483,7 +1484,7 @@
     <section id="teams">
       <div class="section-head">
         <div>
-          <span class="section-kicker">04 / Focus team portfolio construction</span>
+          <span class="section-kicker">04 / Team portfolio construction</span>
           <h2>Compare roster value stories.</h2>
         </div>
         <p class="section-copy">Use the team board to see how roster value changes over time. The Eagles case study is about paying stars while still finding enough underpriced production elsewhere.</p>
@@ -1636,7 +1637,7 @@
     const state = {
       position: 'ALL',
       team: 'ALL',
-      season: 'ALL',
+      season: null,
       sort: 'surplus_desc',
       search: '',
       minSurplus: 30,
@@ -1721,7 +1722,15 @@
       const players = DATA.players || [];
       const teams = ['ALL', ...Array.from(new Set(players.map(p => p.team).filter(Boolean))).sort()];
       $('#teamSelect').innerHTML = teams.map(team => `<option value="${team}">${team === 'ALL' ? 'All teams' : team}</option>`).join('');
-      const seasons = ['ALL', ...Array.from(new Set(players.map(p => p.season).filter(Boolean))).sort((a,b) => b - a)];
+     const seasons = Array.from(new Set(players.map(p => p.season).filter(Boolean))).sort((a, b) => Number(b) - Number(a));
+
+        if (!state.season && seasons.length) {
+         state.season = String(seasons[0]);
+          }
+
+    $('#seasonSelect').innerHTML = seasons
+    .map(season => `<option value="${season}" ${String(season) === String(state.season) ? 'selected' : ''}>${season} season</option>`)
+    .join('');
       $('#seasonSelect').innerHTML = seasons.map(season => `<option value="${season}">${season === 'ALL' ? 'All seasons' : season}</option>`).join('');
       const positions = ['ALL', 'QB', 'RB', 'WR', 'TE'];
       $('#positionChips').innerHTML = positions.map(pos => `<button type="button" class="chip ${pos === state.position ? 'active' : ''}" data-position="${pos}">${pos}</button>`).join('');
@@ -1747,7 +1756,7 @@
       let filtered = players.filter(player => {
         if (state.position !== 'ALL' && player.position !== state.position) return false;
         if (state.team !== 'ALL' && player.team !== state.team) return false;
-        if (state.season !== 'ALL' && String(player.season) !== String(state.season)) return false;
+        if (state.season && String(player.season) !== String(state.season)) return false;
         if (Number(player.player_surplus_gap || 0) < state.minSurplus) return false;
         if (state.rookieOnly && !player.is_likely_rookie_contract) return false;
         if (state.confidenceOnly && String(player.overall_confidence || '').toLowerCase() !== 'high') return false;
@@ -1782,7 +1791,7 @@
     function renderExplorer() {
       const filtered = getFilteredPlayers();
       if (!filtered.includes(state.selectedPlayer)) state.selectedPlayer = filtered[0] || null;
-      $('#candidateSummary').textContent = `${filtered.length} players displayed`;
+      $('#candidateSummary').textContent = `${filtered.length} candidates in ${state.season}`;
       $('#tableCount').textContent = `${filtered.length} rows`;
       renderExplorerStats(filtered);
       renderCandidateCards(filtered);
@@ -1811,11 +1820,11 @@
         return;
       }
       target.innerHTML = players.slice(0, 6).map((p, idx) => `
-        <button type="button" class="player-card ${state.selectedPlayer === p ? 'selected' : ''}" data-index="${idx}" data-position="${p.position}" aria-label="View ${escapeHtml(p.player_name)}">
+        <button type="button" class="player-card ${state.selectedPlayer === p ? 'selected' : ''}" data-index="${idx}" data-position="${p.position}" aria-label="View ${escapeHtml(p.player_name)} ${p.season} season">
           <div class="card-top">
             <div>
               <div class="player-name">${escapeHtml(p.player_name)}</div>
-              <div class="player-meta">${p.team} / ${p.position} / ${p.draft_capital_bucket || 'draft NA'}</div>
+              <div class="player-meta">${p.season} season / ${p.team} / ${p.position} / ${p.draft_capital_bucket || 'draft NA'}</div>
             </div>
             <span class="badge">${p.overall_confidence || 'confidence NA'}</span>
           </div>
@@ -1845,6 +1854,7 @@
       detail.innerHTML = `
         <h3 class="detail-player">${escapeHtml(player.player_name)}</h3>
         <div class="chip-row">
+          <span class="badge">${player.season} season</span>
           <span class="badge">${player.team}</span>
           <span class="badge">${player.position}</span>
           <span class="badge">${player.estimated_contract_stage || 'stage NA'}</span>
@@ -1856,7 +1866,7 @@
           <div class="detail-kpi"><strong>${draft}</strong><span>draft context</span></div>
         </div>
         <div class="explain-box">
-          <strong>Why the model cares:</strong> ${escapeHtml(player.watchlist_note || 'This player fits the current value screen.')} The key question is whether production is arriving before cost fully reflects it.
+          <strong>Why the model cares in ${player.season}:</strong> ${escapeHtml(player.watchlist_note || 'This player fits the current value screen for this season.')} The key question is whether that season’s production arrived before cost fully reflected it.
         </div>
       `;
     }
@@ -1901,7 +1911,7 @@
       });
       if (insight) {
         const p = state.selectedPlayer && players.includes(state.selectedPlayer) ? state.selectedPlayer : players[0];
-        insight.innerHTML = `<strong>${escapeHtml(p.player_name)}</strong> (${p.team} / ${p.position}) sits at $${fmt(p.cap_number, 2)}M cost proxy and ${fmt(p.production_score, 1)} production score. The model reads this as <strong>${gap(p.player_surplus_gap, 0)}</strong> surplus gap.
+        insight.innerHTML = `<strong>${escapeHtml(p.player_name)}</strong> (${p.season} season / ${p.team} / ${p.position}) sits at $${fmt(p.cap_number, 2)}M cost proxy and ${fmt(p.production_score, 1)} production score. The model reads this season as <strong>${gap(p.player_surplus_gap, 0)}</strong> surplus gap.
           <div class="mini-data"><span>${p.estimated_contract_stage || 'contract stage NA'}</span><span>${p.overall_confidence || 'confidence NA'} confidence</span><span>${p.draft_capital_bucket || 'draft bucket NA'}</span></div>`;
       }
       $$('#scatterChart .dot').forEach(dot => {
@@ -1911,7 +1921,7 @@
         });
         dot.addEventListener('mouseenter', () => {
           const p = players[Number(dot.dataset.index)];
-          if (insight) insight.innerHTML = `<strong>${escapeHtml(p.player_name)}</strong> preview: ${p.team} / ${p.position}, surplus ${gap(p.player_surplus_gap, 0)}, production ${fmt(p.production_score, 1)}, cost $${fmt(p.cap_number, 2)}M. Click to lock this player into the value card.`;
+          if (insight) insight.innerHTML = `<strong>${escapeHtml(p.player_name)}</strong> preview: ${p.season} season / ${p.team} / ${p.position}, surplus ${gap(p.player_surplus_gap, 0)}, production ${fmt(p.production_score, 1)}, cost $${fmt(p.cap_number, 2)}M. Click to lock this player-season into the value card.`;
         });
       });
     }
@@ -1920,8 +1930,9 @@
       const rows = players.map(p => `
         <tr data-name="${escapeHtml(p.player_name)}">
           <td><strong>${escapeHtml(p.player_name)}</strong></td>
-          <td>${p.team}</td>
-          <td>${p.position}</td>
+            <td>${p.season}</td>
+            <td>${p.team}</td>
+            <td>${p.position}</td>
           <td class="num positive">${gap(p.player_surplus_gap, 0)}</td>
           <td class="num">${fmt(p.production_score, 1)}</td>
           <td class="num">$${fmt(p.cap_number, 2)}</td>
@@ -1929,7 +1940,7 @@
           <td>${p.estimated_contract_stage || 'NA'}</td>
         </tr>
       `).join('');
-      $('#playerTable').innerHTML = rows || '<tr><td colspan="8" class="empty">No matching rows</td></tr>';
+      $('#playerTable').innerHTML = rows || '<tr><td colspan="9" class="empty">No matching rows</td></tr>';
     }
 
     function renderTeams() {
@@ -2157,3 +2168,4 @@
   </script>
 </body>
 </html>
+
