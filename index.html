@@ -158,6 +158,18 @@
       color: var(--text);
       background: rgba(255,255,255,0.07);
     }
+    .navlinks a.active {
+      color: #06100b;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      font-weight: 900;
+      box-shadow: 0 10px 28px rgba(200,240,90,0.16);
+    }
+
+    .mobile-panel a.active {
+      color: var(--text);
+      background: rgba(200,240,90,0.12);
+      border-radius: 10px;
+    }
     .navlinks a.launch {
       color: #08110c;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -1245,13 +1257,13 @@
       </div>
       <div>
         <div class="eyebrow"><span class="live-dot"></span><span id="heroEyebrow">Portfolio project / sports analytics / model validation</span></div>
-        <h1><span class="outline">Find</span><span class="glow">Surplus</span><span class="outline">Before</span><span>Market</span></h1>
+        <h1><span class="outline">Find</span><span class="glow">Value</span><span class="outline">Before</span><span>Market</span></h1>
         <p class="hero-sub" id="heroSub">
           An interactive portfolio site for exploring a simple question: which NFL players are producing more value than their current cost suggests?
         </p>
         <div class="cta-row">
-          <a class="btn primary" href="#explorer">Open Interactive Model Lab</a>
-          <a class="btn" href="#backtest">Stress Test the Signal</a>
+          <a class="btn primary" href="#explorer">Go to the Interactive Model</a>
+          <a class="btn" href="#backtest">See the Backtest</a>
           <a class="btn" id="heroGithub" href="https://github.com/h00nce-boop/nfl-moneyball-roster-value" target="_blank" rel="noreferrer">View GitHub</a>
         </div>
         <div class="metric-strip" id="metricStrip"></div>
@@ -1271,7 +1283,7 @@
             </div>
             <div class="console-grid">
               <div class="console-stat"><strong id="consoleCandidates">252</strong><span>flagged players</span></div>
-              <div class="console-stat"><strong id="consoleThreshold">gap >= 5</strong><span>default value screen</span></div>
+              <div class="console-stat"><strong id="consoleThreshold">value gap ≥ 5</strong><span>default candidate cutoff</span></div>
               <div class="console-stat"><strong id="consoleWatchlist">27</strong><span>watchlist players</span></div>
               <div class="console-stat"><strong id="consoleUpdated">2026-06-01</strong><span>last data refresh</span></div>
             </div>
@@ -1282,30 +1294,48 @@
 
     <div class="ticker-wrap" aria-hidden="true">
       <div class="ticker">
-        <span class="ticker-item">📈 Surplus Value</span>
-        <span class="ticker-item">🏈 Rookie Contract Edge</span>
+        <span class="ticker-item">📈 Value Gap</span>
+        <span class="ticker-item">🏈 Rookie Contract Value</span>
         <span class="ticker-item">🦅 Eagles Case Study</span>
         <span class="ticker-item">🎯 Backtest Lift +10.3pp</span>
         <span class="ticker-item">💸 Cost vs Production</span>
-        <span class="ticker-item">🧪 Signal Stress Test</span>
-        <span class="ticker-item">📊 Candidate Board</span>
-        <span class="ticker-item">⚡ Market Repricing</span>
-        <span class="ticker-item">📈 Surplus Value</span>
-        <span class="ticker-item">🏈 Rookie Contract Edge</span>
+        <span class="ticker-item">🧪 Backtested Signal</span>
+        <span class="ticker-item">📊 Season Candidate Board</span>
+        <span class="ticker-item">⚡ Price Catches Up</span>
+        <span class="ticker-item">📈 Value Gap</span>
+        <span class="ticker-item">🏈 Rookie Contract Value</span>
         <span class="ticker-item">🦅 Eagles Case Study</span>
         <span class="ticker-item">🎯 Backtest Lift +10.3pp</span>
         <span class="ticker-item">💸 Cost vs Production</span>
-        <span class="ticker-item">🧪 Signal Stress Test</span>
-        <span class="ticker-item">📊 Candidate Board</span>
-        <span class="ticker-item">⚡ Market Repricing</span>
+        <span class="ticker-item">🧪 Backtested Signal</span>
+        <span class="ticker-item">📊 Season Candidate Board</span>
+        <span class="ticker-item">⚡ Price Catches Up</span>
       </div>
     </div>
+
+    <section id="start-model" class="compact-section">
+  <div class="section-head">
+    <div>
+      <span class="section-kicker">Start here</span>
+      <h2>Start with the model.</h2>
+    </div>
+    <p class="section-copy">Want to use the tool first? Jump straight to the season explorer, then come back to the thesis and backtest for context.</p>
+  </div>
+
+  <div class="panel pad">
+    <div class="cta-row" style="margin-top:0;">
+      <a class="btn primary" href="#explorer">Go to the Model</a>
+      <a class="btn" href="#backtest">See the Backtest</a>
+      <a class="btn" href="#thesis">Read the Thesis</a>
+    </div>
+  </div>
+</section>
 
     <section id="thesis" class="compact-section">
       <div class="section-head">
         <div>
           <span class="section-kicker">01 / Project thesis</span>
-          <h2>The edge is value, not just talent.</h2>
+          <h2>Great teams find value before price catches up.</h2>
         </div>
         <p class="section-copy">NFL teams are not only trying to find great players. They are trying to find production before it becomes expensive. This project turns that idea into an interactive roster-value model, a candidate board, and a first-pass backtest.</p>
       </div>
@@ -1364,12 +1394,12 @@
         <article class="finding-card">
           <div class="finding-icon">🎯</div>
           <h3>Backtest Shows Lift</h3>
-          <p>At the default screen, flagged candidates had a 57.9% next-season hit rate versus 47.6% for the baseline group.</p>
+          <p>At the default cutoff, flagged candidates had a 57.9% next-season hit rate versus 47.6% for the baseline group.</p>
         </article>
         <article class="finding-card">
           <div class="finding-icon">📊</div>
           <h3>Not a Black Box</h3>
-          <p>The site lets users move filters and thresholds so the model can be explored, questioned, and stress tested.</p>
+          <p>The site lets users move filters and thresholds so the model can be explored, questioned, and tested.</p>
         </article>
         <article class="finding-card">
           <div class="finding-icon">🛠️</div>
@@ -1388,6 +1418,10 @@
         <p class="section-copy">Choose a season, then filter by team, position, cost profile, and value threshold. Each card represents one player’s value signal for the selected season, not the player's full career.</p>
       </div>
 
+      <div class="plain-formula panel pad" style="margin-bottom: 22px;">
+        <strong>How to read this section:</strong> Choose a season first, then adjust the value gap cutoff. A higher value gap means the model thinks the player produced more than his estimated cost would suggest in that season.
+      </div>
+
       <div class="control-deck" aria-label="Player filters">
         <div class="field">
           <label for="searchInput">Search player, team, draft bucket</label>
@@ -1404,7 +1438,7 @@
         <div class="field">
           <label for="sortSelect">Sort</label>
           <select id="sortSelect">
-            <option value="surplus_desc">Surplus gap high to low</option>
+            <option value="surplus_desc">Value gap high to low</option>
             <option value="production_desc">Production score high to low</option>
             <option value="cap_asc">Cap number low to high</option>
             <option value="draft_pick_asc">Draft pick early to late</option>
@@ -1422,10 +1456,10 @@
         </div>
         <div class="range-wrap">
           <label class="field" style="display: inline-grid; min-width: 170px;">
-            <span style="font-family:var(--mono); font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em;">Minimum surplus</span>
+            <span style="font-family:var(--mono); font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:.1em;">Show players with value gap at least</span>
             <input id="surplusRange" type="range" min="0" max="75" step="1" value="30" />
           </label>
-          <strong class="badge" id="surplusRangeLabel">gap >= 30</strong>
+          <strong class="badge" id="surplusRangeLabel">value gap ≥ 30</strong>
         </div>
         <div class="toggle-row">
           <label class="toggle"><input type="checkbox" id="rookieOnly" checked /> rookie contract only</label>
@@ -1454,7 +1488,7 @@
           <div class="panel-title"><h3>Cost vs Performance Map</h3><span>click any dot</span></div>
           <div class="chart-wrap">
             <svg class="svg-chart" id="scatterChart" viewBox="0 0 760 390" role="img" aria-label="Scatter plot of production score by cap number"></svg>
-            <p class="chart-note">Lower cost and higher production is the upper-left bargain zone. Dot size reflects surplus gap. Click a dot for a quick readout.</p>
+            <p class="chart-note">Lower cost and higher production is the upper-left bargain zone. Dot size reflects value gap. Click a dot for a quick readout.</p>
             <div class="scatter-insight" id="scatterInsight">Click any point on the map to preview the player-season behind it.</div>
           </div>
         </div>
@@ -1468,7 +1502,7 @@
                   <th data-sort="season">Season</th>
                   <th data-sort="team">Team</th>
                   <th data-sort="position">Pos</th>
-                  <th data-sort="player_surplus_gap">Surplus</th>
+                  <th data-sort="player_surplus_gap">Value Gap</th>
                   <th data-sort="production_score">Production</th>
                   <th data-sort="cap_number">Cap $M</th>
                   <th data-sort="draft_pick">Draft</th>
@@ -1495,7 +1529,7 @@
           <div class="team-buttons" id="teamButtons"></div>
         </div>
         <div class="panel">
-          <div class="panel-title"><h3 id="teamChartTitle">Team surplus trend</h3><span>surplus_rank_gap by season</span></div>
+          <div class="panel-title"><h3 id="teamChartTitle">Team value trend</h3><span>surplus_rank_gap by season</span></div>
           <div class="chart-wrap">
             <svg class="svg-chart" id="teamLineChart" viewBox="0 0 820 400" role="img" aria-label="Line chart of team surplus by season"></svg>
           </div>
@@ -1508,14 +1542,14 @@
       <div class="section-head">
         <div>
           <span class="section-kicker">05 / Backtest lab</span>
-          <h2>Stress test the signal.</h2>
+          <h2>See whether the model holds up.</h2>
         </div>
         <p class="section-copy">The backtest asks a simple question: after the model flagged a player as underpriced, did that player perform better the next season than similar players who were not flagged? This is an early validation check, not proof of a finished prediction system.</p>
       </div>
 
       <div class="backtest-layout">
         <div class="panel">
-          <div class="panel-title"><h3>Threshold controller</h3><span id="thresholdLabel">threshold = 5</span></div>
+          <div class="panel-title"><h3>Value gap threshold</h3><span id="thresholdLabel">threshold = 5</span></div>
           <div class="scoreboard" id="backtestScoreboard"></div>
           <div class="threshold-buttons" id="thresholdButtons"></div>
         </div>
@@ -1574,7 +1608,7 @@
       <div class="roadmap-grid">
         <article class="roadmap-card">
           <div class="status-pill live">Current / V4</div>
-          <h3>Backtested surplus signal</h3>
+          <h3>Backtested value signal</h3>
           <p>Current release: interactive candidate board, team value stories, default threshold backtest, threshold sensitivity, season stability, and a lightweight dashboard preview.</p>
         </article>
         <article class="roadmap-card">
@@ -1667,6 +1701,7 @@
       bindControls();
       populateFilters();
       renderAll();
+      setupActiveNav();
     }
 
     function hydrateStaticCopy() {
@@ -1686,7 +1721,7 @@
         streamlitFrame.src = `${streamlitUrl}${streamlitUrl.includes('?') ? '&' : '?'}embed=true&embed_options=dark_theme`;
       }
       $('#consoleCandidates').textContent = fmt0(metrics.modelCandidates || 0);
-      $('#consoleThreshold').textContent = `gap >= ${metrics.defaultThreshold || 5}`;
+      $('#consoleThreshold').textContent = `value gap ≥ ${metrics.defaultThreshold || 5}`;
       $('#consoleWatchlist').textContent = fmt0((DATA.players || []).length);
       $('#consoleUpdated').textContent = meta.lastUpdated || 'NA';
       $('#heroLift').textContent = pp(metrics.hitRateLift || 0);
@@ -1706,7 +1741,10 @@
       $('#teamSelect').addEventListener('change', (event) => { state.team = event.target.value; renderExplorer(); });
       $('#seasonSelect').addEventListener('change', (event) => { state.season = event.target.value; renderExplorer(); });
       $('#sortSelect').addEventListener('change', (event) => { state.sort = event.target.value; renderExplorer(); });
-      $('#surplusRange').addEventListener('input', (event) => { state.minSurplus = Number(event.target.value); $('#surplusRangeLabel').textContent = `gap >= ${state.minSurplus}`; renderExplorer(); });
+      $('#surplusRange').addEventListener('input', (event) => {state.minSurplus = Number(event.target.value);
+      $('#surplusRangeLabel').textContent = `value gap ≥ ${state.minSurplus}`;
+          renderExplorer();
+        });
       $('#rookieOnly').addEventListener('change', (event) => { state.rookieOnly = event.target.checked; renderExplorer(); });
       $('#confidenceOnly').addEventListener('change', (event) => { state.confidenceOnly = event.target.checked; renderExplorer(); });
       $$('th[data-sort]').forEach((th) => {
@@ -1806,9 +1844,9 @@
       const top = players[0];
       const stats = [
         [players.length, 'players matching filters'],
-        [gap(avg(players, 'player_surplus_gap')), 'average surplus gap'],
-        [gap(maxSurplus, 0), 'max surplus gap'],
-        [top ? top.player_name : 'NA', 'top displayed candidate this season']
+        [gap(avg(players, 'player_surplus_gap')), 'average value gap'],
+        [gap(maxSurplus, 0), 'max value gap'],
+        [top ? top.player_name : 'NA', 'top candidate this season']
       ];
       $('#explorerStats').innerHTML = stats.map(([value, label]) => `<div class="stat-tile"><strong>${value}</strong><span>${label}</span></div>`).join('');
     }
@@ -1816,7 +1854,7 @@
     function renderCandidateCards(players) {
       const target = $('#candidateCards');
       if (!players.length) {
-        target.innerHTML = '<div class="empty">No players match these filters. Lower the surplus threshold or clear the search.</div>';
+        target.innerHTML = '<div class="empty">No players match these filters. Lower the value gap cutoff or clear the search.</div>';
         return;
       }
       target.innerHTML = players.slice(0, 6).map((p, idx) => `
@@ -1860,7 +1898,7 @@
           <span class="badge">${player.estimated_contract_stage || 'stage NA'}</span>
         </div>
         <div class="detail-grid">
-          <div class="detail-kpi"><strong>${gap(player.player_surplus_gap, 0)}</strong><span>player surplus gap</span></div>
+          <div class="detail-kpi"><strong>${gap(player.player_surplus_gap, 0)}</strong><span>value gap</span></div>
           <div class="detail-kpi"><strong>${fmt(player.production_score, 1)}</strong><span>production score</span></div>
           <div class="detail-kpi"><strong>$${fmt(player.cap_number, 2)}M</strong><span>estimated cost</span></div>
           <div class="detail-kpi"><strong>${draft}</strong><span>draft context</span></div>
@@ -1906,12 +1944,12 @@
         const selected = state.selectedPlayer === p;
         svg.insertAdjacentHTML('beforeend', `
           <circle class="dot ${selected ? 'is-selected' : ''}" data-index="${idx}" cx="${x(p.cap_number)}" cy="${y(p.production_score)}" r="${selected ? r + 3 : r}" fill="${fill}" opacity="0.86" stroke="${selected ? 'var(--accent)' : 'rgba(255,255,255,0.7)'}" stroke-width="${selected ? 2.5 : 1}"></circle>
-          <title>${escapeHtml(p.player_name)} / ${p.team} / surplus ${gap(p.player_surplus_gap, 0)}</title>
+          <title>${escapeHtml(p.player_name)} / ${p.team} / value gap ${gap(p.player_surplus_gap, 0)}</title>
         `);
       });
       if (insight) {
         const p = state.selectedPlayer && players.includes(state.selectedPlayer) ? state.selectedPlayer : players[0];
-        insight.innerHTML = `<strong>${escapeHtml(p.player_name)}</strong> (${p.season} season / ${p.team} / ${p.position}) sits at $${fmt(p.cap_number, 2)}M estimated cost and ${fmt(p.production_score, 1)} production score. The model reads this season as <strong>${gap(p.player_surplus_gap, 0)}</strong> surplus gap.
+        insight.innerHTML = `<strong>${escapeHtml(p.player_name)}</strong> (${p.season} season / ${p.team} / ${p.position}) sits at $${fmt(p.cap_number, 2)}M estimated cost and ${fmt(p.production_score, 1)} production score. The model reads this season as <strong>${gap(p.player_surplus_gap, 0)}</strong> value gap.
           <div class="mini-data"><span>${p.estimated_contract_stage || 'contract stage NA'}</span><span>${p.overall_confidence || 'confidence NA'} confidence</span><span>${p.draft_capital_bucket || 'draft bucket NA'}</span></div>`;
       }
       $$('#scatterChart .dot').forEach(dot => {
@@ -1921,7 +1959,7 @@
         });
         dot.addEventListener('mouseenter', () => {
           const p = players[Number(dot.dataset.index)];
-          if (insight) insight.innerHTML = `<strong>${escapeHtml(p.player_name)}</strong> preview: ${p.season} season / ${p.team} / ${p.position}, surplus ${gap(p.player_surplus_gap, 0)}, production ${fmt(p.production_score, 1)}, cost $${fmt(p.cap_number, 2)}M. Click to lock this player-season into the value card.`;
+          if (insight) insight.innerHTML = `<strong>${escapeHtml(p.player_name)}</strong> preview: ${p.season} season / ${p.team} / ${p.position}, value gap ${gap(p.player_surplus_gap, 0)}, production ${fmt(p.production_score, 1)}, estimated cost $${fmt(p.cap_number, 2)}M. Click to lock this player-season into the value card.`;
         });
       });
     }
@@ -1967,7 +2005,7 @@
       const pad = { left: 62, right: 34, top: 34, bottom: 54 };
       if (!rows.length) return;
       rows = [...rows].sort((a,b) => Number(a.season) - Number(b.season));
-      $('#teamChartTitle').textContent = `${state.selectedTeam} surplus trend`;
+      $('#teamChartTitle').textContent = `${state.selectedTeam} value trend`;
       const values = rows.map(r => Number(r.surplus_rank_gap || 0));
       const minY = Math.min(-22, ...values) - 2;
       const maxY = Math.max(24, ...values) + 2;
@@ -1986,7 +2024,7 @@
         svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="${x(idx)}" y="${height - 18}" text-anchor="middle">${row.season}</text>`);
         svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="${x(idx)}" y="${y(row.surplus_rank_gap) - 14}" text-anchor="middle">${gap(row.surplus_rank_gap, 1)}</text>`);
       });
-      svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="18" y="${height/2}" transform="rotate(-90 18 ${height/2})" text-anchor="middle">surplus_rank_gap</text>`);
+      svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="18" y="${height/2}" transform="rotate(-90 18 ${height/2})" text-anchor="middle">team value gap</text>`);
     }
 
     function renderTeamSeasonCards(rows) {
@@ -2007,9 +2045,9 @@
       $('#backtestScoreboard').innerHTML = `
         <div class="score-card"><div class="score-label">model hit rate</div><div class="score-value">${pct(selected.hit_rate_model)}</div><div class="score-sub">${fmt0(selected.players_model)} model candidates</div></div>
         <div class="score-card"><div class="score-label">baseline hit rate</div><div class="score-value" style="color:var(--muted);">${pct(selected.hit_rate_baseline)}</div><div class="score-sub">${fmt0(selected.players_baseline)} baseline players</div></div>
-        <div class="score-card wide"><div class="score-label">lift at this threshold</div><div class="score-value">${pp(selected.hit_rate_lift)}</div><div class="score-sub">Next-season surplus gap lift: ${gap(selected.next_surplus_gap_lift, 2)}</div></div>
+        <div class="score-card wide"><div class="score-label">lift at this cutoff</div><div class="score-value">${pp(selected.hit_rate_lift)}</div><div class="score-sub">Next-season value gap lift: ${gap(selected.next_surplus_gap_lift, 2)}</div></div>
       `;
-      $('#thresholdButtons').innerHTML = thresholds.map(row => `<button type="button" class="chip ${Number(row.threshold) === state.threshold ? 'active' : ''}" data-threshold="${row.threshold}">gap >= ${row.threshold}</button>`).join('');
+      $('#thresholdButtons').innerHTML = thresholds.map(row => `<button type="button" class="chip ${Number(row.threshold) === state.threshold ? 'active' : ''}" data-threshold="${row.threshold}">value gap ≥ ${row.threshold}</button>`).join('');
       $$('#thresholdButtons .chip').forEach(btn => btn.addEventListener('click', () => { state.threshold = Number(btn.dataset.threshold); renderBacktest(); }));
       $('#backtestBars').innerHTML = [
         ['Model candidates', selected.hit_rate_model, false],
@@ -2044,7 +2082,7 @@
         svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="${x(r.threshold)}" y="${height - 20}" text-anchor="middle">${r.threshold}</text>`);
         if (selected) svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="${x(r.threshold)}" y="${y(r.hit_rate_lift) - 16}" text-anchor="middle">${pp(r.hit_rate_lift)}</text>`);
       });
-      svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="${width/2}" y="${height - 4}" text-anchor="middle">surplus threshold</text>`);
+      svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="${width/2}" y="${height - 4}" text-anchor="middle">value gap cutoff</text>`);
       svg.insertAdjacentHTML('beforeend', `<text class="axis-label" x="18" y="${height/2}" transform="rotate(-90 18 ${height/2})" text-anchor="middle">hit-rate lift</text>`);
     }
 
@@ -2163,6 +2201,35 @@
     function escapeHtml(value) {
       return String(value ?? '').replace(/[&<>"]/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[char]));
     }
+
+    function setupActiveNav() {
+  const sectionIds = ['start-model', 'thesis', 'findings', 'explorer', 'teams', 'backtest', 'streamlit', 'roadmap', 'about'];
+  const navLinks = Array.from(document.querySelectorAll('.navlinks a[href^="#"], .mobile-panel a[href^="#"]'));
+
+  const observer = new IntersectionObserver((entries) => {
+    const visibleSections = entries
+      .filter(entry => entry.isIntersecting)
+      .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+    if (!visibleSections.length) return;
+
+    const activeId = visibleSections[0].target.id;
+
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      link.classList.toggle('active', href === `#${activeId}`);
+    });
+  }, {
+    root: null,
+    rootMargin: '-25% 0px -60% 0px',
+    threshold: [0.15, 0.35, 0.55]
+  });
+
+  sectionIds.forEach(id => {
+    const section = document.getElementById(id);
+    if (section) observer.observe(section);
+  });
+}
 
     document.addEventListener('DOMContentLoaded', init);
   </script>
