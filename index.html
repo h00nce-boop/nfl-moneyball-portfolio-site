@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NFL Moneyball | Interactive Portfolio</title>
   <meta name="description" content="Interactive NFL roster value portfolio site for Hannah Levy." />
+  <meta property="og:title" content="NFL Moneyball | Roster Value Model" />
+<meta property="og:description" content="An interactive sports analytics portfolio project exploring NFL roster value, contract timing, and underpriced production." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://nfl-moneyball.vercel.app/" />
+<meta property="og:image" content="https://nfl-moneyball.vercel.app/linkedin-preview.png" />
+<meta property="og:image:secure_url" content="https://nfl-moneyball.vercel.app/linkedin-preview.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="627" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="NFL Moneyball | Roster Value Model" />
+<meta name="twitter:description" content="An interactive sports analytics portfolio project exploring NFL roster value, contract timing, and underpriced production." />
+<meta name="twitter:image" content="https://nfl-moneyball.vercel.app/linkedin-preview.png" />
   <style>
     :root {
       --bg: #06080d;
@@ -1257,7 +1271,7 @@
       </div>
       <div>
         <div class="eyebrow"><span class="live-dot"></span><span id="heroEyebrow">Portfolio project / sports analytics / model validation</span></div>
-        <h1><span class="outline">Find</span><span class="glow">Value</span><span class="outline">Before</span><span>Market</span></h1>
+        <h1><span class="outline">Find</span><span class="glow">Value</span><span class="outline">Before</span><span>Price</span></h1>
         <p class="hero-sub" id="heroSub">
           An interactive portfolio site for exploring a simple question: which NFL players are producing more value than their current cost suggests?
         </p>
@@ -1425,7 +1439,20 @@
       <div class="control-deck" aria-label="Player filters">
         <div class="field">
           <label for="searchInput">Search player, team, draft bucket</label>
-          <input class="input" id="searchInput" placeholder="Try: Puka, WR, round_1, DEN" />
+          <input
+          class="input"
+          id="searchInput"
+          name="player_search"
+          type="search"
+          inputmode="search"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          data-lpignore="true"
+          data-1p-ignore="true"
+          aria-label="Search player, team, or draft bucket"
+          placeholder="Try: Puka, WR, round_1, DEN"
+          />
         </div>
         <div class="field">
           <label for="teamSelect">Team</label>
@@ -1529,7 +1556,7 @@
           <div class="team-buttons" id="teamButtons"></div>
         </div>
         <div class="panel">
-          <div class="panel-title"><h3 id="teamChartTitle">Team value trend</h3><span>surplus_rank_gap by season</span></div>
+          <div class="panel-title"><h3 id="teamChartTitle">Team value trend</h3><span>team value gap by season</span></div>
           <div class="chart-wrap">
             <svg class="svg-chart" id="teamLineChart" viewBox="0 0 820 400" role="img" aria-label="Line chart of team surplus by season"></svg>
           </div>
