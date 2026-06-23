@@ -3,56 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>NFL Moneyball | V5 Decision Support</title>
-  <meta
-    name="description"
-    content="A public-data roster-value screen for identifying offensive skill-position players whose production outran their public contract-cost profile."
-  />
+  <meta name="description" content="A public-data roster-value screen for identifying offensive skill-position players whose production outran their public contract-cost profile." />
 
-  <link rel="canonical" href="https://nfl-moneyball.vercel.app/" />
-
-  <!-- Open Graph / LinkedIn -->
-  <meta property="og:site_name" content="NFL Moneyball" />
+  <meta property="og:title" content="NFL Moneyball | V5 Decision Support" />
+  <meta property="og:description" content="A public-data roster-value screen for identifying reviewable offensive skill-position surplus using EPA-based production, public contract-cost proxies, and matched validation." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://nfl-moneyball.vercel.app/" />
-  <meta property="og:title" content="NFL Moneyball | V5 Decision Support" />
-  <meta
-    property="og:description"
-    content="A public-data roster-value screen for identifying reviewable offensive skill-position surplus using EPA-based production, public contract-cost proxies, and matched validation."
-  />
-  <meta
-    property="og:image"
-    content="https://nfl-moneyball.vercel.app/og-image.png?v=2"
-  />
-  <meta
-    property="og:image:secure_url"
-    content="https://nfl-moneyball.vercel.app/og-image.png?v=2"
-  />
-  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image" content="https://nfl-moneyball.vercel.app/og-image.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta
-    property="og:image:alt"
-    content="NFL Moneyball V5 decision-support preview graphic"
-  />
 
-  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="NFL Moneyball | V5 Decision Support" />
-  <meta
-    name="twitter:description"
-    content="A public-data roster-value screen for identifying reviewable offensive skill-position surplus."
-  />
-  <meta
-    name="twitter:image"
-    content="https://nfl-moneyball.vercel.app/og-image.png?v=2"
-  />
-  <meta
-    name="twitter:image:alt"
-    content="NFL Moneyball V5 decision-support preview graphic"
-  />
-
+  <meta name="twitter:description" content="A public-data roster-value screen for identifying reviewable offensive skill-position surplus." />
+  <meta name="twitter:image" content="https://nfl-moneyball.vercel.app/og-image.png" />
   <style>
     :root {
       --bg: #f7f8fa;
@@ -472,8 +437,8 @@
       <p class="lead">The model is built around ranks because rank gaps are easy to explain to non-technical readers.</p>
       <div class="grid-2">
         <div class="card">
-          <span class="pill">Player value gap</span>
-          <div class="formula">player_value_gap = cost_rank_within_position - production_rank_within_position</div>
+          <span class="pill">Player surplus gap</span>
+          <div class="formula">player_surplus_gap = cost_rank_within_position - production_rank_within_position</div>
           <p>A positive value gap means the player produced better than his public cost rank would imply.</p>
         </div>
         <div class="card">
@@ -521,7 +486,7 @@
     </section>
 
     <section id="glossary">
-      <h2>Glossary for normal people</h2>
+      <h2>Plain-English glossary</h2>
       <p class="lead">These labels should appear near the visuals and inside the dashboard, because nobody should have to decode column names.</p>
       <div class="glossary">
         <div class="term"><strong>Value Gap</strong><span>How far a player’s production rank beat his public cost rank. Positive is good.</span></div>
