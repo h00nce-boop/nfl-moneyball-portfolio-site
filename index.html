@@ -347,7 +347,7 @@
     <div class="topbar-inner">
       <a class="brand" href="#top" aria-label="NFL Moneyball home">
         <span class="brand-mark">V5</span>
-        <span>NFL Moneyball <small>Roster value decision support</small></span>
+        <span>NFL Moneyball <small>Roster Value Decision Support</small></span>
       </a>
       <nav aria-label="Primary navigation">
         <a href="#answer">Answer</a>
@@ -426,7 +426,7 @@
         </div>
       </div>
       <div class="grid-3" style="margin-top:18px;">
-        <div class="card"><span class="pill">Good sign</span><h3>Positive value gap</h3><p>Production rank is better than public cost rank within the same position.</p></div>
+        <div class="card"><span class="pill">Good sign</span><h3>Positive Value Gap</h3><p>Production rank is better than public cost rank within the same season and position.</p></div>
         <div class="card"><span class="pill">Better sign</span><h3>Rookie-contract timeline</h3><p>The player is still in the window where public salary is less likely to fully price production.</p></div>
         <div class="card"><span class="pill">Best public read</span><h3>High confidence</h3><p>The row has cleaner public contract and sample-size context, making it safer to interpret.</p></div>
       </div>
@@ -437,14 +437,14 @@
       <p class="lead">The model is built around ranks because rank gaps are easy to explain to non-technical readers.</p>
       <div class="grid-2">
         <div class="card">
-          <span class="pill">Player surplus gap</span>
+          <span class="pill">Value Gap</span>
           <div class="formula">player_surplus_gap = cost_rank_within_position - production_rank_within_position</div>
-          <p>A positive value gap means the player produced better than his public cost rank would imply.</p>
+          <p>Public label: <strong>Value Gap</strong>. Raw field: <code>player_surplus_gap</code>. A positive Value Gap means the player produced better than his public cost rank would imply.</p>
         </div>
-        <div class="card">
-          <span class="pill">Production score</span>
-          <div class="formula">production_score = EPA-based production + lightweight box-score context</div>
-          <p>EPA is the core production input, with supporting terms for yards, touchdowns, receptions, interceptions, and sacks depending on position.</p>
+      <div class="card">
+        <span class="pill">Production score</span>
+        <div class="formula">production_score = EPA-based production + lightweight box-score context</div>
+        <p>EPA is the core production input, using public passing_epa, rushing_epa, and receiving_epa fields loaded through nflreadpy, with supporting terms for yards, touchdowns, receptions, interceptions, and sacks depending on position.</p>
         </div>
       </div>
     </section>
